@@ -1,15 +1,14 @@
 (function($) {
 
-    $.fn.objectify = function( options ) {
+    $.fn.objectifyForm = function( options ) {
 
         var settings = $.extend({
-            'form' : 'form',
             'selector' : 'name'
         }, options);
 
         var dataObject = {},
             allowedSelectors = ['name', 'id'],
-            inputs = $(settings.form + ' :input')
+            inputs = $(this).find(':input')
                      .not(':input[type=button], :input[type=submit], :input[type=reset], :button');
 
         settings.selector = $.inArray(settings.selector, allowedSelectors) < 0 ? 'name' : settings.selector;
