@@ -18,7 +18,7 @@ Your JS:
 var data = $('.myform').objectifyForm();
 ```
 
-...which would result in a object looking something like:
+...which would result in an object looking like:
 
 ```javascript
 data = {
