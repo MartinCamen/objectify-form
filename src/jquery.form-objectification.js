@@ -3,18 +3,38 @@
     $.fn.objectifyForm = function( options ) {
 
         var settings = $.extend({
-            'selector' : 'name'
+            'selector' : 'name',
+            'exclude' : []
         }, options);
 
         var dataObject = {},
             allowedSelectors = ['name', 'id'],
             inputs = $(this).find(':input')
-                     .not(':input[type=button], :input[type=submit], :input[type=reset], :button');
+                .not(':input[type=button], :input[type=submit], :input[type=reset], :button');
 
         settings.selector = $.inArray(settings.selector, allowedSelectors) < 0 ? 'name' : settings.selector;
 
-        $.each(inputs, function(i) {
-            dataObject[$(inputs[i]).attr(settings.selector)] = $(inputs[i]).val();
+        $.each( inputs, function(i) {
+            var include = true;
+
+            if ( settings.exclude.length ) {
+                if ( $.inArray($(inputs[i]).attr('name'), settings.exclude) > -1 ) {
+                    include = false;
+                }
+                else {
+                    $.each(settings.exclude, function (key, value) {
+                        if ( ( ( value.substring(0, 1) == '#' ) && ( '#' + $(inputs[i]).attr('id') == value ) ) ||
+                             ( ( value.substring(0, 1) == '.' ) && ( $(inputs[i]).hasClass(value.replace('.', '')) ) ) ) {
+                            include = false;
+                        }
+                    });
+                }
+            }
+
+            if ( include ) {
+                dataObject[$(inputs[i]).attr(settings.selector)] = $(inputs[i]).val();
+            }
+
         });
 
         return dataObject;
