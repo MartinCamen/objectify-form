@@ -3,8 +3,10 @@
     $.fn.objectifyForm = function( options ) {
 
         var settings = $.extend({
-            'selector' : 'name',
-            'exclude' : []
+            'selector'       : 'name',
+            'exclude'        : [],
+            'checkboxesAll'  : true,
+            'checkboxesData' : 'boolean'
         }, options);
 
         var dataObject = {},
@@ -24,7 +26,7 @@
                 else {
                     $.each(settings.exclude, function (key, value) {
                         if ( ( ( value.substring(0, 1) == '#' ) && ( '#' + $(inputs[i]).attr('id') == value ) ) ||
-                             ( ( value.substring(0, 1) == '.' ) && ( $(inputs[i]).hasClass(value.replace('.', '')) ) ) ) {
+                            ( ( value.substring(0, 1) == '.' ) && ( $(inputs[i]).hasClass(value.replace('.', '')) ) ) ) {
                             include = false;
                         }
                     });
@@ -32,7 +34,22 @@
             }
 
             if ( include ) {
-                dataObject[$(inputs[i]).attr(settings.selector)] = $(inputs[i]).val();
+                if ( $(inputs[i]).is(':checkbox') ) {
+                    if ( settings.checkboxesAll ) {
+                        if ( settings.checkboxesData === 'boolean' ) {
+                            dataObject[$(inputs[i]).attr(settings.selector)] = $(inputs[i]).is(':checked') ? 1 : 0;
+                        }
+                        else {
+                            dataObject[$(inputs[i]).attr(settings.selector)] = $(inputs[i]).val();
+                        }
+                    }
+                    else if ( $(inputs[i]).is(':checked') ) {
+                        dataObject[$(inputs[i]).attr(settings.selector)] = 1;
+                    }
+                }
+                else {
+                    dataObject[$(inputs[i]).attr(settings.selector)] = $(inputs[i]).val();
+                }
             }
 
         });

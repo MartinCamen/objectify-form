@@ -72,9 +72,24 @@ It's also possible to exclude by `id` or by `class`, simply prepend with a `#` f
 
 ```javascript
 var data = $('.myform').objectifyForm({
-  'exclude' : ['#fname', 'lastname', '.age']
+  'exclude' : [
+    '#fname',   // by id
+    'lastname', // by name
+    '.age'      // by class
+  ]
 });
 ```
 
+#### Checkboxes:
+
+Checkboxes can be included or not, regardless of whether they're checked or not.
+You can also specify whether you want the value of the checkboxes or a checked/not checked setting.
+
+```javascript
+var data = $('.myform').objectifyForm({
+  'checkboxesAll'  : true, // If set to true, all checkboxes will be included. Default: true
+  'checkboxesData' : 'boolean' // Other option is 'value'. Default: 'boolean'
+});
+```
 
 Easy, peasy.
