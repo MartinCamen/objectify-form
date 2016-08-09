@@ -14,6 +14,10 @@
             inputs = $(this).find(':input')
                 .not(':input[type=button], :input[type=submit], :input[type=reset], :button');
 
+        if ( typeof options.before == 'function' ) {
+            options.before.call(this, settings, dataObject);
+        }
+
         settings.selector = $.inArray(settings.selector, allowedSelectors) < 0 ? 'name' : settings.selector;
 
         $.each( inputs, function(i) {
@@ -53,6 +57,10 @@
             }
 
         });
+
+        if ( typeof options.after == 'function' ) {
+            options.after.call(this, settings, dataObject);
+        }
 
         return dataObject;
     };

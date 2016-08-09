@@ -92,4 +92,36 @@ var data = $('.myform').objectifyForm({
 });
 ```
 
-Easy, peasy.
+#### Callbacks:
+
+Possible callbacks are `before` and `after` which both has the `settings` and the `data` as parameters.
+
+```javascript
+var data = $('.myform').objectifyForm({
+  before: function(settings, data) {
+    // You can change the settings or append to the data here
+    settings.selector = 'name';
+    data.id = 2;
+  },
+  after: function(settings, data) {
+    // Same thing here, but is called after the form has been processed
+    if ( data.firstname === 'John' ) {
+        data.firstname = 'Jane';
+    }
+  }
+});
+```
+
+...which would result in something like:
+
+```javascript
+data = {
+  'id'        : 2,
+  'firstname' : 'Jane',
+  'lastname'  : 'Doe',
+  'age'       : '30'
+};
+```
+
+
+That's it. Easy, peasy.
