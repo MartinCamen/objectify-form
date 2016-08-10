@@ -14,8 +14,8 @@
             inputs = $(this).find(':input')
                 .not(':input[type=button], :input[type=submit], :input[type=reset], :button');
 
-        if ( typeof options.before == 'function' ) {
-            options.before.call(this, settings, dataObject);
+        if ( typeof settings.before != 'undefined' && typeof settings.before == 'function' ) {
+            settings.before.call(this, settings, dataObject);
         }
 
         settings.selector = $.inArray(settings.selector, allowedSelectors) < 0 ? 'name' : settings.selector;
@@ -58,8 +58,8 @@
 
         });
 
-        if ( typeof options.after == 'function' ) {
-            options.after.call(this, settings, dataObject);
+        if ( typeof settings.after != 'undefined' && typeof settings.after == 'function' ) {
+            settings.after.call(this, settings, dataObject);
         }
 
         return dataObject;
