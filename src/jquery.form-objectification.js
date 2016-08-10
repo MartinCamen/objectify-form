@@ -51,6 +51,11 @@
                         dataObject[$(inputs[i]).attr(settings.selector)] = 1;
                     }
                 }
+                else if ( $(inputs[i]).is(':radio') ) {
+                    if ( $(inputs[i]).is(':checked') ) {
+                        dataObject[$(inputs[i]).attr(settings.selector)] = $(inputs[i]).val();
+                    }
+                }
                 else {
                     dataObject[$(inputs[i]).attr(settings.selector)] = $(inputs[i]).val();
                 }
