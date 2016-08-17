@@ -9,10 +9,9 @@
             'checkboxesData' : 'boolean'
         }, options);
 
-        var dataObject = {},
+        var dataObject       = {},
             allowedSelectors = ['name', 'id'],
-            inputs = $(this).find(':input')
-                .not(':input[type=button], :input[type=submit], :input[type=reset], :button');
+            inputs           = $(this).find(':input').not(':input[type=button], :input[type=submit], :input[type=reset], :button');
 
         if ( typeof settings.before != 'undefined' && typeof settings.before == 'function' ) {
             settings.before.call(this, settings, dataObject);

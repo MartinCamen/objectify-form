@@ -1,8 +1,10 @@
-# form-objectification
+# objectify-form
 
 A simple jQuery plugin for creating objects from form input values.
 
-### Example
+Disclaimer: At the moment this does not work with file uploads in form.
+
+### Example:
 
 The HTML:
 ```
@@ -125,3 +127,26 @@ data = {
 
 
 That's it. Easy, peasy.
+
+
+
+### Complete options:
+
+```javascript
+var data = $('.myform').objectifyForm({
+  'selector'       : 'name' // Default: 'name'. Accepted: 'name' or 'id'.
+  'checkboxesAll'  : true, // Default: true. If set to true, all checkboxes will be included, else only checked ones will be included.
+  'checkboxesData' : 'boolean', // Default: 'boolean'. Other accepted option is 'value'.
+  'exclude'        : [ // Exclude selected elements from the object
+    '#fname',   // by id,
+    'lastname', // by name
+    '.age'      // and/or by class.
+  ],
+  before: function(settings, data) {
+    // Called before the form has been objectified.
+  },
+  after: function(settings, data) {
+    // Called after the form has been objectified.
+  }
+});
+```
